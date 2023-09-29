@@ -5,7 +5,7 @@ A little game of  Natural's List using Lean4.
 
 1. Create a fork
 1. Clone the fork at your computer 
-1. Create a copy of `ListNatGame.lean` in `players/`  and set your name on it, like: `answers/Isaac.lean`;
+1. Create a copy of `ListNatGame.lean` in `players/`  and set your name on it, like: `Isaac.lean`;
 1. Fix all errors to complete the game (obsviously, the functions must honor its names);
 1. Complete all theorems.
 
@@ -53,3 +53,9 @@ Please make a pull requests to this repository to add your answers with:
 1. Make a pull request :)
 
 Good game!
+
+## Highscores
+
+🥇 Débora Tayná
+🥈 Gabrielle Borja
+🥉 ???
