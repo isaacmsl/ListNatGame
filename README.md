@@ -56,6 +56,6 @@ Good game!
 
 ## Highscores
 
-🥇 Débora Tayná
-🥈 Gabrielle Borja
-🥉 ???
+- 🥇 Débora Tayná
+- 🥈 Gabrielle Borja
+- 🥉 ???
