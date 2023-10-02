@@ -1,5 +1,5 @@
 # ListNatGame
-A little game of  Natural's List using Lean4.
+A little game of  Natural's List using [Lean 4](https://lean-lang.org/).
 
 ## How to play
 
