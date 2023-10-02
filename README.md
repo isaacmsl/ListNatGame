@@ -56,6 +56,7 @@ Good game!
 
 ## Highscores
 
-- 🥇 Débora Tayná
-- 🥈 Gabrielle Borja
-- 🥉 Hannah Santos
+- 🥇 [Débora Tayná](https://github.com/dtayna)
+- 🥈 [Gabrielle Borja](https://github.com/gabrielleborja)
+- 🥉 [Hannah Santos](https://github.com/HannahSantos)
+- [Ramon Jales](https://github.com/RamonJales)
