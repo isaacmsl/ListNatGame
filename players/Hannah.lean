@@ -9,6 +9,7 @@ inductive ListNat where
 open ListNat -- Easier to write ListNat things
 open Nat
 
+
 #check nil -- With open command
 #check ListNat.nil -- Without "open ListNat" command
 #check cons 0 nil
@@ -139,11 +140,6 @@ def any : (Nat → Bool) → ListNat → Bool
 #eval any odd (cons 4 nil)
 #eval any Zero (cons 7 (cons 5 (cons 1 (cons 6 nil))))
 #eval any Zero (cons 5 (cons 6 (cons 8 (cons 0 nil))))
-
--- [1,2,3] → [2,4,6]
-def doubleList : ListNat → ListNat
-  | nil => nil
-  | cons n l => cons (n*2) (doubleList l)
 
 #eval doubleList nil
 #eval doubleList (cons 1 (cons 3 nil))
@@ -283,6 +279,7 @@ def lower_bound : Nat → ListNat → Nat
 #eval lower_bound 0 nil
 #eval lower_bound 3 (cons 1 (cons 3 (cons 4 (cons 8 nil))))
 #eval lower_bound 5 (cons 1 (cons 3 (cons 4 (cons 8 nil))))
+
 
 -- LEVEL 3: Theorems
 
