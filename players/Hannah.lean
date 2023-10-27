@@ -287,6 +287,210 @@ def lower_bound : Nat → ListNat → Nat
 #eval lower_bound 3 (cons 1 (cons 3 (cons 4 (cons 8 nil))))
 #eval lower_bound 5 (cons 1 (cons 3 (cons 4 (cons 8 nil))))
 
+def min₂ : Nat → Nat → Nat
+  | n+1, m+1 => (min n m) + 1
+  | _, _ => 0
+
+#eval min₂ 0 1
+#eval min₂ 5 9
+
+def max₂ : Nat → Nat → Nat
+  | 0, m => m
+  | n, 0 => n
+  | n+1, m+1 => (max n m) + 1
+
+#eval max₂ 0 1
+#eval max₂ 9 7
+
+def filter : (Nat → Bool) → ListNat → ListNat
+  | _, nil => nil
+  | p, cons n l => if p n then cons n (filter p l) else filter p l
+
+def even : Nat → Bool
+  | 0 => true
+  | succ 0 => false
+  | succ (succ n) => even n
+ 
+#eval filter even nil
+#eval filter even (cons 0 (cons 2 (cons 3 nil)))
+
+def odd : Nat → Bool
+  | 0 => false
+  | succ 0 => true
+  | succ (succ n) => odd n
+
+#eval odd 4
+#eval odd 7
+
+def Zero : Nat → Bool
+  | 0 => true
+  | _ => false
+
+#eval Zero 1
+#eval Zero zero
+
+def all : (Nat → Bool) → ListNat → Bool
+  | _, nil => true
+  | p, cons n l => p n && all p l
+
+#eval all even (cons 8 (cons 4 (cons 6 nil)))
+#eval all even (cons 2 (cons 6 (cons 7 nil)))
+#eval all odd (cons 5 (cons 2 (cons 7 (cons 9 nil))))
+#eval all odd nil
+#eval all Zero (cons 0 (cons 0 (cons 0 (cons 0 nil))))
+#eval all Zero (cons 0 (cons 1 (cons 0 (cons 6 nil))))
+
+
+def any : (Nat → Bool) → ListNat → Bool
+  | _, nil => false
+  | p, cons n l => p n || any p l
+
+#eval any even (cons 2 (cons 6 (cons 7 nil)))
+#eval any even (cons 5 (cons 7 (cons 9 (cons 3 nil))))
+#eval any odd (cons 6 (cons 4 (cons 2 (cons 1 nil))))
+#eval any odd (cons 4 nil)
+#eval any Zero (cons 7 (cons 5 (cons 1 (cons 6 nil))))
+#eval any Zero (cons 5 (cons 6 (cons 8 (cons 0 nil))))
+
+#eval doubleList nil
+#eval doubleList (cons 1 (cons 3 nil))
+
+def map : (Nat → Nat) → ListNat → ListNat
+  | _, nil => nil
+  | p, cons n l => cons (p n) (map p l)
+
+-- Use \. + space to write · 
+#eval map (· * 2) (cons 1 (cons 3 nil))
+#eval map (· + 3) (cons 1 nil)
+
+def addNat : Nat → ListNat → ListNat
+  | n, l => map (· + n) l
+
+#eval addNat 4 nil
+#eval addNat 8 (cons 0 (cons 5 (cons 1 nil)))
+
+def multNat : Nat → ListNat → ListNat
+  | n, l => map (· * n) l
+
+#eval multNat 3 (cons 1 (cons 2 (cons 3 nil)))
+#eval multNat 2 nil
+
+def expNat : Nat → ListNat → ListNat
+  | n, l => map (· ^ n) l
+
+#eval expNat 2 (cons 5 (cons 7 (cons 2 (cons 1 nil))))
+#eval expNat 3 nil
+
+def enumTo : Nat → ListNat
+  | n+1 => append (n+1) (enumTo n)
+  | _ => cons 0 nil
+
+#eval enumTo 3
+#eval enumTo 0
+
+def take : Nat → ListNat → ListNat
+  | n+1, (cons m l) => cons m (take n l)
+  | _, _ => nil
+
+#eval take 4 (cons 3 (cons 4 (cons 2 (cons 1 nil))))
+#eval take 6 (cons 3 (cons 3 nil))
+
+def drop : Nat → ListNat → ListNat
+  | n+1, (cons _ l) => drop n l
+  | _, l => l
+
+#eval drop 2 (cons 3 (cons 4 (cons 2 (cons 1 nil))))
+#eval drop 4 (cons 3 (cons 3 nil))
+
+def elemIndices : Nat → ListNat → ListNat
+  | n, cons m l => if n == m then cons 0 (addNat 1 (elemIndices n l)) else (addNat 1 (elemIndices n l))
+  | _, nil => nil
+
+#eval elemIndices 1 (cons 1 (cons 1 (cons 1 (cons 2 nil))))
+#eval elemIndices 3 (cons 2 (cons 1 (cons 0 (cons 9 nil))))
+
+def pwAdd : ListNat → ListNat → ListNat
+  | (cons n ns), (cons m ms) => cons (n+m) (pwAdd ns ms)
+  | _, _ => nil
+
+#eval pwAdd (cons 2 (cons 4 (cons 5 nil))) (cons 5 (cons 6 nil))
+#eval pwAdd (cons 1 (cons 2 nil)) (cons 6 (cons 5 (cons 4 nil)))
+
+def pwMult : ListNat → ListNat → ListNat
+  | (cons n ns), (cons m ms) => cons (n*m) (pwMult ns ms)
+  | _, _ => nil
+
+#eval pwMult (cons 2 (cons 4 (cons 5 nil))) (cons 5 (cons 6 nil))
+#eval pwMult (cons 1 (cons 2 nil)) (cons 6 (cons 5 (cons 4 nil)))
+
+def isSorted : ListNat → Bool
+  | cons n (cons m l) => n ≤ m && isSorted l
+  | _ => true
+
+#eval isSorted (cons 3 (cons 2 nil))
+#eval isSorted (cons 1 (cons 2 (cons 3 (cons 4 nil))))
+
+def minimum : ListNat → Nat
+  | cons n nil => n
+  | cons n l => min₂ n (minimum l)
+  | _ => 100000000000-- Error (to be fixed)
+
+#eval minimum (cons 3 (cons 5 (cons 1 (cons 8 nil))))
+#eval minimum (cons 4 nil)
+
+def maximum : ListNat → Nat 
+  | nil => 0
+  | cons n l => max₂ n (maximum l)
+
+#eval maximum nil
+#eval maximum (cons 10 (cons 5 (cons 7 nil)))
+#eval maximum (cons 1 (cons 1 nil))
+
+def isPrefixOf : ListNat → ListNat → Bool
+  | nil, _ => true
+  | cons n ns, cons m ms => n == m && isPrefixOf ns ms
+  | _, _ => false
+
+#eval isPrefixOf (cons 1 (cons 2 (cons 3 nil))) (cons 1 (cons 2 (cons 3 (cons 4 nil))))
+#eval isPrefixOf (cons 3 nil) (cons 2 nil)
+#eval isPrefixOf (cons 7 nil) nil
+
+def mix : ListNat → ListNat → ListNat
+  | cons n ns, cons m ms => (cons n (cons m (mix ns ms)))
+  | _, _ => nil
+
+#eval mix (cons 1 (cons 2 nil)) (cons 10 (cons 20 (cons 30 nil)))
+#eval mix nil (cons 3 nil)
+
+def interspace : Nat → ListNat → ListNat
+  | _, cons m nil => cons m nil
+  | n, cons m l => (cons m (cons n (interspace n l)))
+  | _, nil => nil
+
+#eval interspace 4 (cons 7 nil)
+#eval interspace 5 (cons 10 (cons 20 (cons 30 nil)))
+#eval interspace 7 nil
+
+-- Assume ordered lists
+-- First element greater than n
+def upper_bound : Nat → ListNat → Nat
+  | _, nil => 0
+  | n, (cons m l) => if m > n then m else upper_bound n l
+
+#eval upper_bound 0 nil
+#eval upper_bound 3 (cons 1 (cons 3 (cons 4 (cons 8 nil))))
+#eval upper_bound 5 (cons 1 (cons 3 (cons 4 (cons 8 nil))))
+
+-- Assume ordered lists
+-- First element not less than n
+def lower_bound : Nat → ListNat → Nat
+  | _, nil => 0
+  | n, (cons m l) => if m ≥ n then m else lower_bound n l
+
+#eval lower_bound 0 nil
+#eval lower_bound 3 (cons 1 (cons 3 (cons 4 (cons 8 nil))))
+#eval lower_bound 5 (cons 1 (cons 3 (cons 4 (cons 8 nil))))
+
 
 -- LEVEL 3: Theorems
 
