@@ -141,6 +141,10 @@ def Any : (Nat → Bool) → ListNat → Bool
 #eval Any Zero (cons 7 (cons 5 (cons 1 (cons 6 nil))))
 #eval Any Zero (cons 5 (cons 6 (cons 8 (cons 0 nil))))
 
+def doubleList : ListNat → ListNat
+  | nil => nil
+  | cons n l => cons (n*2) (doubleList l)
+
 #eval doubleList nil
 #eval doubleList (cons 1 (cons 3 nil))
 
