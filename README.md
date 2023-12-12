@@ -58,5 +58,5 @@ Good game!
 
 - 🥇 [Débora Tayná](https://github.com/dtayna)
 - 🥈 [Gabrielle Borja](https://github.com/gabrielleborja)
-- 🥉🏅 [Hannah Santos](https://github.com/HannahSantos)
+- 🥉🏅🏅 [Hannah Santos](https://github.com/HannahSantos)
 - [Ramon Jales](https://github.com/RamonJales)
